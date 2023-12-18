@@ -22,6 +22,7 @@
 //        SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package com.hancinworld.fw.client.gui;
 
+import com.hancinworld.fw.Tags;
 import com.hancinworld.fw.handler.ConfigurationHandler;
 import com.hancinworld.fw.reference.Reference;
 import cpw.mods.fml.client.config.GuiConfig;
@@ -34,7 +35,7 @@ public class ModGuiConfig extends GuiConfig {
     {
         super(parentScreen,
                 new ConfigElement(ConfigurationHandler.instance().getConfigurationCategory()).getChildElements(),
-                Reference.MOD_ID,
+                Tags.MOD_ID,
                 false,
                 false,
                 GuiConfig.getAbridgedConfigPath(ConfigurationHandler.instance().toString()));

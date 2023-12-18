@@ -23,6 +23,7 @@
 package com.hancinworld.fw.handler;
 
 import com.hancinworld.fw.FullscreenWindowed;
+import com.hancinworld.fw.Tags;
 import com.hancinworld.fw.reference.Reference;
 import net.minecraft.client.resources.I18n;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
@@ -85,7 +86,7 @@ public class ConfigurationHandler {
     @SubscribeEvent
     public void onConfigurationChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event)
     {
-        if(event.modID.equalsIgnoreCase(Reference.MOD_ID)) {
+        if(event.modID.equalsIgnoreCase(Tags.MOD_ID)) {
             load();
             if(!_isInitializing){
                 FullscreenWindowed.proxy.registerKeyBindings();

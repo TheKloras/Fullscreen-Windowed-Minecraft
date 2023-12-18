@@ -1,10 +1,10 @@
 [
   {
-    "modid": "fw",
-    "name": "Fullscreen Windowed",
+    "modid": "${modId}",
+    "name": "${modName}",
     "description": "Activates fullscreen windowed mode for Minecraft",
-    "version": "${version}",
-    "mcversion": "${mcversion}",
+    "version":"${modVersion}",
+    "mcversion":"${minecraftVersion}",
     "url": "https://github.com/hancin/Fullscreen-Windowed-Minecraft",
     "updateUrl": "",
     "authorList": ["Hancin"],

@@ -23,12 +23,8 @@
 package com.hancinworld.fw.reference;
 
 public class Reference {
-
-    public static final String MOD_ID = "fw";
-    public static final String MOD_NAME = "Fullscreen Windowed";
     public static final String CLIENT_PROXY_CLASS = "com.hancinworld.fw.proxy.ClientProxy";
     public static final String SERVER_PROXY_CLASS = "com.hancinworld.fw.proxy.ServerProxy";
-    public static final String VERSION = "1.3.0";
     public static final String GUI_FACTORY_CLASS = "com.hancinworld.fw.client.gui.GuiFactory";
     public static final String MC_VERSIONS = "[1.7,)";
     public static final int AUTOMATIC_MONITOR_SELECTION = 0;
