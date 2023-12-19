@@ -26,14 +26,14 @@ import java.awt.*;
 import java.io.File;
 import java.lang.reflect.Method;
 
+import me.eigenraven.lwjgl3ify.api.Lwjgl3Aware;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.common.MinecraftForge;
 
-import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
+import org.lwjglx.LWJGLException;
+import org.lwjglx.input.Keyboard;
+import org.lwjglx.opengl.Display;
 
 import com.hancinworld.fw.handler.ConfigurationHandler;
 import com.hancinworld.fw.handler.DrawScreenEventHandler;
@@ -45,6 +45,9 @@ import cpw.mods.fml.client.SplashProgress;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
+import static org.lwjgl.glfw.GLFW.*;
+
+@Lwjgl3Aware
 public class ClientProxy extends CommonProxy {
 
     private Rectangle _savedWindowedBounds;
@@ -238,8 +241,10 @@ public class ClientProxy extends CommonProxy {
             Display.getHeight());
         if (goFullScreen) _savedWindowedBounds = currentCoordinates;
 
+        long window = Display.getWindow();
+
         // Changing this property and causing a Display update will cause LWJGL to add/remove decorations (borderless).
-        System.setProperty("org.lwjgl.opengl.Window.undecorated", goFullScreen ? "true" : "false");
+        glfwSetWindowAttrib(window, GLFW_DECORATED, goFullScreen ? GLFW_FALSE : GLFW_TRUE);
 
         // Get the fullscreen dimensions for the appropriate screen.
         Rectangle screenBounds = getAppropriateScreenBounds(currentCoordinates, desiredMonitor);
@@ -248,20 +253,22 @@ public class ClientProxy extends CommonProxy {
         Rectangle newBounds = goFullScreen ? screenBounds : _savedWindowedBounds;
         if (newBounds == null) newBounds = screenBounds;
 
-        try {
-            Display.setDisplayMode(new DisplayMode((int) newBounds.getWidth(), (int) newBounds.getHeight()));
-            Display.setResizable(!goFullScreen);
-            Display.setFullscreen(false);
 
-            Display.update();
-
-            Display.setLocation(newBounds.x, newBounds.y);
-
-            callMinecraftResizeMethod((int) newBounds.getWidth(), (int) newBounds.getHeight());
-
-        } catch (LWJGLException e) {
-            e.printStackTrace();
+        if (goFullScreen){
+            glfwMaximizeWindow(window);
+        }else {
+            glfwRestoreWindow(window);
         }
+
+        glfwSetWindowSize(window, (int) newBounds.getWidth(), (int) newBounds.getHeight());
+        glfwSetWindowAttrib(window, GLFW_RESIZABLE, goFullScreen ? GLFW_FALSE : GLFW_TRUE);
+        Display.setFullscreen(false);
+
+        Display.update();
+
+        glfwSetWindowPos(window, newBounds.x, newBounds.y);
+
+        callMinecraftResizeMethod((int) newBounds.getWidth(), (int) newBounds.getHeight());
 
         currentState = goFullScreen;
     }
