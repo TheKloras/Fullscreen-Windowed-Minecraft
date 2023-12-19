@@ -22,16 +22,16 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package com.hancinworld.fw.proxy;
 
+import static org.lwjgl.glfw.GLFW.*;
+
 import java.awt.*;
 import java.io.File;
 import java.lang.reflect.Method;
 
-import me.eigenraven.lwjgl3ify.api.Lwjgl3Aware;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.common.MinecraftForge;
 
-import org.lwjglx.LWJGLException;
 import org.lwjglx.input.Keyboard;
 import org.lwjglx.opengl.Display;
 
@@ -44,8 +44,7 @@ import com.hancinworld.fw.utility.LogHelper;
 import cpw.mods.fml.client.SplashProgress;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.ReflectionHelper;
-
-import static org.lwjgl.glfw.GLFW.*;
+import me.eigenraven.lwjgl3ify.api.Lwjgl3Aware;
 
 @Lwjgl3Aware
 public class ClientProxy extends CommonProxy {
@@ -253,10 +252,9 @@ public class ClientProxy extends CommonProxy {
         Rectangle newBounds = goFullScreen ? screenBounds : _savedWindowedBounds;
         if (newBounds == null) newBounds = screenBounds;
 
-
-        if (goFullScreen){
+        if (goFullScreen) {
             glfwMaximizeWindow(window);
-        }else {
+        } else {
             glfwRestoreWindow(window);
         }
 
