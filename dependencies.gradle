@@ -35,4 +35,5 @@
  */
 dependencies {
     implementation 'org.lwjgl:lwjgl-glfw:3.3.2'
+    implementation 'com.github.GTNewHorizons:lwjgl3ify:2.0.4'
 }
